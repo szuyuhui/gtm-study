@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>GTM 練習實驗室</title>
+    </head>
+<body>
+    <h1>練習場</h1>
+
+    <section>
+        <h2>連結點擊</h2>
+        <a href="https://www.google.com" id="nav-google" class="external-link">前往 Google</a>
+    </section>
+
+    <section>
+        <h2>按鈕互動</h2>
+        <button id="add-to-cart" class="btn-primary">加入購物車</button>
+        <button id="wishlist" data-product-id="12345">加入收藏夾</button>
+    </section>
+
+    <section>
+        <h2>聯絡我們 (表單練習)</h2>
+        <form id="contact-form">
+            <input type="email" placeholder="輸入 Email" required>
+            <button type="submit">送出資料</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Data Layer 觸發</h2>
+        <button onclick="pushData()">模擬購買成功</button>
+    </section>
+
+    <script>
+        function pushData() {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'purchase_complete',
+                'transaction_id': 'T12345',
+                'value': 500,
+                'currency': 'TWD'
+            });
+            alert('DataLayer 已送出！');
+        }
+    </script>
+</body>
+</html>
