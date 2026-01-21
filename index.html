@@ -2,7 +2,13 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>GTM 練習實驗室</title>
+    <title>GTM 追蹤練習</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; }
+        .product-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+        .btn { background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        .btn-purchase { background-color: #28a745; }
+    </style>
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -11,49 +17,78 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-PTVTJN76');</script>
     <!-- End Google Tag Manager -->
-    </head>
+</head>
 <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTVTJN76"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <h1>練習場</h1>
+
+    <h1>🚀 數據追蹤</h1>
+    <p>這是一個模擬網頁，用於練習 GTM 事件觸發與 DataLayer 傳接。</p>
+
+    <hr>
 
     <section>
-        <h2>連結點擊</h2>
-        <a href="https://www.google.com" id="nav-google" class="external-link">前往 Google</a>
+        <h3>1. 點擊事件 (Click Event)</h3>
+        <p>點擊下方連結，練習追蹤「出站點擊」：</p>
+        <a href="https://www.google.com" id="outbound-link" class="external-nav">前往 Google 搜尋</a>
     </section>
 
-    <section>
-        <h2>按鈕互動</h2>
-        <button id="add-to-cart" class="btn-primary">加入購物車</button>
-        <button id="wishlist" data-product-id="12345">加入收藏夾</button>
-    </section>
+    <hr>
 
     <section>
-        <h2>聯絡我們 (表單練習)</h2>
+        <h3>2. 表單提交 (Form Submission)</h3>
         <form id="contact-form">
-            <input type="email" placeholder="輸入 Email" required>
-            <button type="submit">送出資料</button>
+            <label>姓名：<input type="text" name="username" required></label><br><br>
+            <label>興趣：
+                <select name="interest">
+                    <option value="seo">SEO 優化</option>
+                    <option value="tracking">追蹤技術</option>
+                </select>
+            </label><br><br>
+            <button type="submit" class="btn">提交諮詢</button>
         </form>
+        <p id="form-msg" style="color: green;"></p>
     </section>
 
-    <section>
-        <h2>Data Layer 觸發</h2>
-        <button onclick="pushData()">模擬購買成功</button>
+    <hr>
+
+    <section class="product-card">
+        <h3>3. 電商事件 (Ecommerce - DataLayer)</h3>
+        <div id="product-info">
+            <p>商品名稱：<strong>進階追蹤課程</strong></p>
+            <p>價格：NT$ 3,000</p>
+            <button class="btn btn-purchase" onclick="addToCart()">加入購物車</button>
+        </div>
     </section>
 
     <script>
-        function pushData() {
+        // 模擬加入購物車的 DataLayer 推送
+        function addToCart() {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
-                'event': 'purchase_complete',
-                'transaction_id': 'T12345',
-                'value': 500,
-                'currency': 'TWD'
+                'event': 'add_to_cart',
+                'ecommerce': {
+                    'currency': 'TWD',
+                    'value': 3000,
+                    'items': [{
+                        'item_id': 'SKU_12345',
+                        'item_name': '進階追蹤課程',
+                        'price': 3000,
+                        'item_category': 'Online Course',
+                        'quantity': 1
+                    }]
+                }
             });
-            alert('DataLayer 已送出！');
+            alert('已將產品資訊推送到 DataLayer！');
         }
+
+        // 模擬表單提交
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('form-msg').innerText = '感謝您的提交！（此為模擬行為）';
+        });
     </script>
 </body>
 </html>
