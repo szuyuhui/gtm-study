@@ -5,9 +5,10 @@
     <title>GTM 追蹤練習</title>
     <style>
         body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; }
-        .product-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+        /* .product-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 8px; } */
         .btn { background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; }
         .btn-purchase { background-color: #28a745; }
+        section { min-height: 500px; margin: 15px 0; background: rgba(0, 0, 0, 0.02); padding: 20px;}
     </style>
 
     <!-- Google Tag Manager -->
@@ -27,7 +28,7 @@
     <h1>🚀 數據追蹤</h1>
     <p>這是一個模擬網頁，用於練習 GTM 事件觸發與 DataLayer 傳接。</p>
 
-    <hr>
+
 
     <section>
         <h3>1. 點擊事件 (Click Event)</h3>
@@ -35,7 +36,7 @@
         <a href="https://www.google.com" id="outbound-link" class="external-nav">前往 Google 搜尋</a>
     </section>
 
-    <hr>
+    
 
     <section>
         <h3>2. 表單提交 (Form Submission)</h3>
@@ -52,7 +53,6 @@
         <p id="form-msg" style="color: green;"></p>
     </section>
 
-    <hr>
 
     <section class="product-card">
         <h3>3. 電商事件 (Ecommerce - DataLayer)</h3>
