@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>測試頁 A - 廣告點擊落地頁</title>
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    fbq('init', '你的PIXEL編號'); // 請替換成真實 ID [cite: 67]
+    fbq('track', 'PageView');    // 追蹤基本瀏覽行為 [cite: 64, 68]
+    </script>
+</head>
+<body>
+    <h1>這是測試頁 A</h1>
+    <p>正在記錄您的訪問資訊，隨後將引導至報名表單...</p>
+
+    <script>
+        // 進階做法：觸發特定事件後再跳轉 
+        // 為了確保數據有時間送出，建議給予極短的延遲或使用回呼
+        function trackAndRedirect() {
+            fbq('track', 'ViewContent', { content_name: 'Test_A_Page' });
+            
+            setTimeout(function() {
+                window.location.href = 'test_page_b.html'; // 跳轉至測試頁 B
+            }, 500); // 延遲 500ms 確保請求發出
+        }
+
+        // 頁面載入後自動執行
+        window.onload = trackAndRedirect;
+    </script>
+</body>
+</html>

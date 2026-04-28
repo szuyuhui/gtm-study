@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>測試頁 B - 名單收集</title>
+    </head>
+<body>
+    <h1>這是測試頁 B</h1>
+    <h3>請填寫資訊以完成測試</h3>
+    
+    <form id="leadForm">
+        <label>姓名：<input type="text" name="name" required></label><br><br>
+        <label>信箱：<input type="email" name="email" required></label><br><br>
+        <button type="submit">提交名單</button>
+    </form>
+
+    <script>
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            // 這裡可以加入提交成功後的追蹤事件，例如 fbq('track', 'Lead'); [cite: 65]
+            alert('名單已成功記錄！');
+        });
+    </script>
+</body>
+</html>
