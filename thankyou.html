@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>感謝您的提交 - GTM 測試頁面</title>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        // 模擬轉換數據推播
+        window.dataLayer.push({
+            'event': 'purchase_complete',
+            'transaction_id': 'T_' + Math.floor(Math.random() * 1000000), // 隨機訂單號碼
+            'transaction_total': 1200,
+            'currency': 'TWD'
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f7f6;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        p {
+            color: #7f8c8d;
+        }
+
+        .status-badge {
+            background: #27ae60;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+    </style>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PTVTJN76');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTVTJN76" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="container">
+        <div class="status-badge">提交成功</div>
+        <h1>感謝您的預約！</h1>
+        <p>我們已收到您的資訊，追蹤工程師正在確認數據中... 🚀</p>
+        <hr>
+        <p><small>提示：開啟 GTM 預覽模式，檢查此頁面是否觸發了「網頁瀏覽」或「purchase_complete」事件。</small></p>
+        <a href="index.html">返回首頁測試</a>
+    </div>
+</body>
+
+</html>
