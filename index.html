@@ -84,11 +84,51 @@
             alert('已將產品資訊推送到 DataLayer！');
         }
 
-        // 模擬表單提交
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            window.location.href = 'thankyou.html';
-        });
+        // 僅為前端練習流程；不送出姓名或興趣資料。
+        (function () {
+            const form = document.getElementById('contact-form');
+            const message = document.getElementById('form-msg');
+            const key = 'gtm-study:valid-submit:v1';
+            let submitting = false;
+            // 返回首頁或重新載入時，取消尚未完成的舊流程。
+            function reset() {
+                submitting = false;
+                form.querySelector('[type="submit"]').disabled = false;
+                try { sessionStorage.removeItem(key); } catch (_) {}
+            }
+            window.addEventListener('pageshow', reset);
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                if (submitting || !form.reportValidity()) return;
+                submitting = true;
+                form.querySelector('[type="submit"]').disabled = true;
+                message.textContent = '驗證通過，正在前往測試感謝頁…';
+                const destination = new URL('thankyou.html', window.location.href);
+                let navigated = false;
+                function navigate() {
+                    if (navigated) return;
+                    navigated = true;
+                    // 在真正導頁前才建立標記，減少取消流程留下的舊標記。
+                    try {
+                        sessionStorage.setItem(key, JSON.stringify({
+                            createdAt: Date.now(),
+                            destination: destination.pathname
+                        }));
+                    } catch (_) {
+                        // 儲存不可用仍可導頁；感謝頁不冒稱已驗證提交來源。
+                    }
+                    window.location.assign(destination.href);
+                }
+                // GTM 未載入或未回呼時仍可導頁；回呼不代表平台已收數。
+                window.setTimeout(navigate, 2000);
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    event: 'contact_form_submit_valid',
+                    eventCallback: navigate,
+                    eventTimeout: 2000
+                });
+            });
+        })();
     </script>
 </body>
 </html>

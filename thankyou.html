@@ -6,16 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>感謝您的提交 - GTM 測試頁面</title>
 
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        // 模擬轉換數據推播
-        window.dataLayer.push({
-            'event': 'purchase_complete',
-            'transaction_id': 'T_' + Math.floor(Math.random() * 1000000), // 隨機訂單號碼
-            'transaction_total': 1200,
-            'currency': 'TWD'
-        });
-    </script>
+
 
     <style>
         body {
@@ -71,13 +62,43 @@
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <div class="container">
-        <div class="status-badge">提交成功</div>
-        <h1>感謝您的預約！</h1>
-        <p>我們已收到您的資訊，追蹤工程師正在確認數據中... 🚀</p>
+        <div class="status-badge">測試流程完成</div>
+        <h1>測試表單流程完成</h1>
+        <p>這是前端練習頁，沒有將表單資料提交到後端。</p>
+        <p id="flow-status">正在檢查本次測試流程…</p>
         <hr>
-        <p><small>提示：開啟 GTM 預覽模式，檢查此頁面是否觸發了「網頁瀏覽」或「purchase_complete」事件。</small></p>
+        <p><small>提示：開啟 GTM 預覽模式，檢查此頁面是否觸發了「網頁瀏覽」或「contact_form_thankyou_arrived」事件。</small></p>
         <a href="index.html">返回首頁測試</a>
     </div>
+    <script>
+        (function () {
+            const key = 'gtm-study:valid-submit:v1';
+            const status = document.getElementById('flow-status');
+            let marker;
+            try {
+                const raw = sessionStorage.getItem(key);
+                // 先消耗標記，重新整理不重複發出事件。
+                sessionStorage.removeItem(key);
+                marker = raw ? JSON.parse(raw) : null;
+            } catch (_) {
+                status.textContent = '無法確認提交來源，本次不記錄提交後到達事件。';
+                return;
+            }
+            const age = marker ? Date.now() - marker.createdAt : NaN;
+            if (!marker || typeof marker.createdAt !== 'number' ||
+                !Number.isFinite(age) || age < 0 || age >= 5 * 60 * 1000 ||
+                marker.destination !== window.location.pathname) {
+                status.textContent = '沒有有效的本次提交標記；僅作一般頁面瀏覽。';
+                return;
+            }
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: 'contact_form_thankyou_arrived' });
+            status.textContent = '已確認本次有效提交後到達，並通知 GTM；平台傳送結果請另行驗證。';
+            window.addEventListener('pageshow', function (event) {
+                if (event.persisted) status.textContent = '返回既有頁面，本次沒有新增到達事件。';
+            });
+        })();
+    </script>
 </body>
 
 </html>
